@@ -1,0 +1,19 @@
+services:
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:2
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      # <Host Port>:<Container Port>
+      - "3001:3001"
+    environment:
+      - TZ=Europe/Moscow
+    networks:
+      - uk-networks
+
+networks:
+  uk-networks:
+    driver: bridge 
