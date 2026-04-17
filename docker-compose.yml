@@ -4,8 +4,13 @@ services:
     image: louislam/uptime-kuma:2
     restart: unless-stopped
     volumes:
-      - ./data:/app/data
+      - /opt/docker/uptime-kuma/data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      # This means the container will be stopped during backup to ensure
+      # backup integrity. You can omit this label if stopping during backup
+      # not required.
+      - docker-volume-backup.stop-during-backup=true
     ports:
       # <Host Port>:<Container Port>
       - "3001:3001"
